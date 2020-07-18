@@ -4,21 +4,23 @@
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
   <div class="search-container">
-    <input type="text" placeholder="Search..">
-    <button type="submit"><i class="fa fa-search"></i></button>
+    <form action="" [formGroup] ="aqiForm">
+      <input type="text" placeholder="Search.." formControlName="aqiInput">
+    <button type="submit" (click)="onSubmit()"><i class="fa fa-search"></i></button>
+    </form>
   </div>
 </div>
 <!-- Responsive Top Navigatio Bar  END-->
 
 <!-- Column Cards -->
-<div class="row" >
+<div class="row">
   <div class = "column">
-    <div class="card">
-      <h3>Mumbai</h3>
-      <p>11:30, Jul 18</p>
-      <p>55 Moderate US AQI PM2.5 | 14 µg/m³</p>
+    <div class="card" *ngIf="result">
+      <h3>{{result['results'][0]['city']}}</h3>
+      <p>{{ date}}</p>
+      <p>{{result['results'][0]['measurements'][0]['value']}} µg/m³<span *ngIf="good">Good </span> <span *ngIf="satisfactory">Satisfactory </span> <span *ngIf="moderate">Moderate </span> <span *ngIf="poor">Poor </span><span *ngIf="veryPoor">Very Poor </span><span *ngIf="severe">Severe </span> </p>
 
-      <p><i class="fa fa-thermometer-half" aria-hidden="true"></i> 30°  <i class="fa fa-tint" aria-hidden="true"></i> 84 % <i class="fa fa-angle-down" aria-hidden="true"></i>14.8 km/h</p>
+      <p><i class="fa fa-thermometer-half" aria-hidden="true"></i>PM10: {{result['results'][0]['measurements'][1]['value']}}  <i class="fa fa-tint" aria-hidden="true"></i> CO: {{result['results'][0]['measurements'][2]['value']}} <i class="fa fa-angle-down" aria-hidden="true"></i>O3:  {{result['results'][0]['measurements'][2]['value']}}</p>
 
       <div>
         <p>Saturday 59 <i class="fa fa-sun-o" aria-hidden="true"></i> 27 %  29%</p>

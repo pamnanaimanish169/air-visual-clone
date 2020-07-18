@@ -28,8 +28,15 @@ export class AqiService {
       }));
   }
 
-  getAqiByLocation(location) {
-    return this.http.get<any>(this.apiUrl + `?location[]=` + location)
+  getAqiByLocation(coord) {
+    return this.http.get<any>(this.apiUrl + `latest?coordinates=` + coord)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
+  getCoordinates(cityName) {
+    return this.http.get<any>('https://geocode.xyz/' + cityName + '?json=1')
       .pipe(map(res => {
         return res;
       }));
