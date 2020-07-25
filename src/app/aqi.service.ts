@@ -32,14 +32,14 @@ export class AqiService {
   }
 
   getAqiByLocation(coord) {
-    return this.http.get<any>(this.apiUrl + `latest?coordinates=` + coord)
+    return this.http.get<any>(this.apiUrl + `/latest?coordinates=` + coord)
       .pipe(map(res => {
         return res;
       }));
   }
 
   getCoordinates(cityName) {
-    return this.http.get<any>('https://cors-anywhere.herokuapp.com/https://geocode.xyz/' + cityName + '?json=1')
+    return this.http.get<any>('https://geocode.xyz/' + cityName + '?json=1')
       .pipe(map(res => {
         return res;
       }));
