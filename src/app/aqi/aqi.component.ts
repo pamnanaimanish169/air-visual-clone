@@ -35,8 +35,17 @@ export class AqiComponent implements OnInit {
   onSubmit() {
     this.aqiService.getCoordinates(this.aqiForm.controls['aqiInput'].value).subscribe(res => {
       const coords = [];
+      const coords2 = [];
+      const newCoords = [];
       coords.push(res.latt);
       coords.push(res.longt);
+      coords2.push({'lat' : res.latt, 'long' : res.longt})
+      coords2.forEach((element, key) => {
+        console.log( element.lat + ';' + element.long )
+        newCoords.push(element.lat + ';' + element.long);
+      })
+      console.log('newCoords' , newCoords);
+
       this.aqiService.getAqiByLocation(coords.toString()).subscribe(res => {
       this.result = res;
       console.log(this.result);
@@ -75,6 +84,7 @@ export class AqiComponent implements OnInit {
       }
       this.date = new Date(this.result['results'][0]['measurements'][0]['lastUpdated']).toUTCString();
     });
+    // GET Forecast for 7 days
     });
   }
 }
