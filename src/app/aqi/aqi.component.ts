@@ -19,6 +19,7 @@ export class AqiComponent implements OnInit {
   poor = false;
   veryPoor = false;
   severe = false;
+  dailyForecast = [];
 
   constructor(private formBuilder: FormBuilder, private aqiService: AqiService) { }
 
@@ -85,6 +86,19 @@ export class AqiComponent implements OnInit {
       this.date = new Date(this.result['results'][0]['measurements'][0]['lastUpdated']).toUTCString();
     });
     // GET Forecast for 7 days
+    this.aqiService.getAqiForecast(newCoords.toString()).subscribe(res => {
+      console.log('FORECAST', res);
+      console.log('7 DAYS', res.data.forecast.daily.pm25)
+      // res.data.forecast.daily.pm25.forEach((element, key) => {
+      //   console.log(element)
+      //   this.dailyForecast.push(element);
+      // })
+      for (let i = 0; i < 2; i++ ) {
+        this.dailyForecast.push(res.data.forecast.daily.pm25[i]);
+      }
+      this.dailyForecast = this.dailyForecast.filter((item , index) => this.dailyForecast.indexOf(item) === index)
+      console.log(this.dailyForecast)
+    })
     });
   }
 }

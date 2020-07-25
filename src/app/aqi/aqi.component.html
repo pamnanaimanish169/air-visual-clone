@@ -13,18 +13,15 @@
 <!-- Responsive Top Navigatio Bar  END-->
 
 <!-- Column Cards -->
-<div class="row">
+<div class="row" *ngIf="result">
   <div class = "column">
-    <div class="card" *ngIf="result">
+    <div class="card">
       <h3>{{result['results'][0]['city']}}</h3>
       <p>{{ date}}</p>
       <p>{{result['results'][0]['measurements'][0]['value']}} µg/m³<span *ngIf="good">Good </span> <span *ngIf="satisfactory">Satisfactory </span> <span *ngIf="moderate">Moderate </span> <span *ngIf="poor">Poor </span><span *ngIf="veryPoor">Very Poor </span><span *ngIf="severe">Severe </span> </p>
-
       <p><i class="fa fa-thermometer-half" aria-hidden="true"></i>PM10: {{result['results'][0]['measurements'][1]['value']}}  <i class="fa fa-tint" aria-hidden="true"></i> CO: {{result['results'][0]['measurements'][2]['value']}} <i class="fa fa-angle-down" aria-hidden="true"></i>O3:  {{result['results'][0]['measurements'][2]['value']}}</p>
-
-      <div>
-        <p>Saturday 59 <i class="fa fa-sun-o" aria-hidden="true"></i> 27 %  29%</p>
-        <p>Saturday 59 <i class="fa fa-sun-o" aria-hidden="true"></i> 27 %  29%</p>
+      <div *ngFor="let item of dailyForecast">
+        <p>{{item.day}} <i class="fa fa-thermometer-half" aria-hidden="true"></i> PM2.5: {{item.avg}}</p>
       </div>
     </div>
   </div>
