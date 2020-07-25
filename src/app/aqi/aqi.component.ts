@@ -20,6 +20,7 @@ export class AqiComponent implements OnInit {
   veryPoor = false;
   severe = false;
   dailyForecast = [];
+  dailyForecastArray = [];
 
   constructor(private formBuilder: FormBuilder, private aqiService: AqiService) { }
 
@@ -91,8 +92,8 @@ export class AqiComponent implements OnInit {
           for (let i = 0; i < 2; i++ ) {
             this.dailyForecast.push(res.data.forecast.daily.pm25[i]);
           }
-          this.dailyForecast = this.dailyForecast.filter((item , index) => this.dailyForecast.indexOf(item) === index)
-          console.log(this.dailyForecast)
+          this.dailyForecastArray = this.dailyForecast.filter((item , index) => this.dailyForecast.indexOf(item) === index)
+          console.log(this.dailyForecastArray)
         })
         console.log('newCoords' , newCoords);
       })
@@ -164,8 +165,13 @@ export class AqiComponent implements OnInit {
       for (let i = 0; i < 2; i++ ) {
         this.dailyForecast.push(res.data.forecast.daily.pm25[i]);
       }
-      this.dailyForecast = this.dailyForecast.filter((item , index) => this.dailyForecast.indexOf(item) === index)
       console.log(this.dailyForecast)
+      for (let i = 0; i < this.dailyForecast.length; i++) {
+        if (this.dailyForecast[i].day == this.dailyForecast[i + 1].day) {
+            this.dailyForecastArray.splice(this.dailyForecastArray.indexOf(this.dailyForecastArray[i]), 1)
+        }
+    }
+    console.log(this.dailyForecast)
     })
     });
   }

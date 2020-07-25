@@ -20,8 +20,10 @@
       <p>{{ date}}</p>
       <p>{{result['results'][0]['measurements'][0]['value']}} µg/m³<span *ngIf="good">Good </span> <span *ngIf="satisfactory">Satisfactory </span> <span *ngIf="moderate">Moderate </span> <span *ngIf="poor">Poor </span><span *ngIf="veryPoor">Very Poor </span><span *ngIf="severe">Severe </span> </p>
       <p><i class="fa fa-thermometer-half" aria-hidden="true"></i>PM10: {{result['results'][0]['measurements'][1]['value']}}  <i class="fa fa-tint" aria-hidden="true"></i> CO: {{result['results'][0]['measurements'][2]['value']}} <i class="fa fa-angle-down" aria-hidden="true"></i>O3:  {{result['results'][0]['measurements'][2]['value']}}</p>
-      <div *ngFor="let item of dailyForecast">
-        <p>{{item.day}} <i class="fa fa-thermometer-half" aria-hidden="true"></i> PM2.5: {{item.avg}}</p>
+      <div *ngIf="dailyForecastArray">
+        <div *ngFor="let item of dailyForecastArray">
+          <p>{{item.day}} <i class="fa fa-thermometer-half" aria-hidden="true"></i> PM2.5: {{item.avg}}</p>
+        </div>
       </div>
     </div>
   </div>
