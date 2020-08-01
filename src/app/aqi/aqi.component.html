@@ -16,19 +16,19 @@
 <div class="row" *ngIf="result">
   <div class="column">
       <div class="card">
-          <p>{{result['results'][0]['city']}}</p>
+          <p *ngIf="result['results'][0]">{{result['results'][0]['city']}}</p>
           <hr>
           <p>{{date}}</p>
           <p>
               <table rules="all">
                   <tr style="background-color: #FFDF58; padding: 10px;"  id="aqi__stats">
                     <td><img [src]="url" alt="" style="max-width: 40%;"></td>
-                    <td>{{result2['data']['iaqi']['pm25']['v']}} <br> Indian AQI</td>
-                    <td><span *ngIf="good">Good </span> <span *ngIf="satisfactory">Satisfactory </span> <span *ngIf="moderate">Moderate </span> <span *ngIf="poor">Poor </span><span *ngIf="veryPoor">Very Poor </span><span *ngIf="severe">Severe </span> <br> PM 2.5  {{result['results'][0]['measurements'][0]['value']}} ug/m^3</td>
+                    <td *ngIf="result2">{{result2['data']['iaqi']['pm25']['v']}} <br> Indian AQI</td>
+                    <td><span *ngIf="good">Good </span> <span *ngIf="satisfactory">Satisfactory </span> <span *ngIf="moderate">Moderate </span> <span *ngIf="poor">Poor </span><span *ngIf="veryPoor">Very Poor </span><span *ngIf="severe">Severe </span> <br>  <span *ngIf="result['results'][0]">PM 2.5  {{result['results'][0]['measurements'][0]['value']}} ug/m^3</span> </td>
                   </tr>
                 </table>
               <table rules="all">
-                  <tr>
+                  <tr *ngIf="weather">
                     <td><img src=".././../assets/mist.png" alt="" style="max-width: 25%;"> {{ (weather['main']['temp'] - 273.15).toFixed(2) }} ° C</td>
                     <td><img src="../../assets/wave.png" alt="" style="max-width: 25%;">{{weather['main']['humidity']}} meter/sec</td>
                     <td><img src="../../assets/download.png" alt="" style="max-width: 25%;"> {{weather['wind']['speed']}} km/h</td>
@@ -39,11 +39,11 @@
       <!-- https://css-tricks.com/table-borders-inside/ -->
       <table rules="all">
           <tr *ngIf="dailyForecast">
-            <td *ngFor="let item of dailyForecast">{{ (item.day) }} <br> <span class="aqi__dailyForecast" style= "border: solid yellow 2px; display: block;text-align: center; " >PM 2.5 {{item.avg}}</span></td>
+            <td *ngFor="let item of dailyForecast">{{ (item.day) }} <br> <span class="aqi__dailyForecast" style= " display: block;text-align: center; " >PM 2.5 {{item.avg}}</span></td>
           </tr>
         </table>
       <p>
-          <button style="background-color: blue; color: white; border: none; width: 100%; height: 50px;display: block;border-radius: 10px;">
+          <button style="background-color: #49739A; color: white; border: none; width: 100%; height: 50px;display: block;border-radius: 10px;">
               7-DAYS FORECAST
           </button>
       </p>
