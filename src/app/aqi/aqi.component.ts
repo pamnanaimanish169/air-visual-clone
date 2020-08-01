@@ -134,12 +134,23 @@ export class AqiComponent implements OnInit {
         this.good = true;
         console.log( document.getElementById('aqi__stats') )
         document.getElementById('aqi__stats').style.background = '#009966'
+        console.log( document.getElementsByClassName('aqi__dailyForecast') )
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        console.log(slides)
+
+        for(let i = 0; i < slides.length; i++) {
+          console.log(slides[i])
+          slides[i]['style']['background'] = '#009966'
+        }
+
+        // document.getElementsByClassName('aqi__dailyForecast').style.background =  '#009966';
         this.url = '../../assets/girl.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 50 && this.result['results'][0]['measurements'][0]['value'] <= 100) {
         this.satisfactory = true;
         this.good = false;
         document.getElementById('aqi__stats').style.background = '#FFDE33'
+        document.getElementById('aqi__dailyForecast').style.background =  '#FFDE33';
         this.url = '../../assets/neutral.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 100 && this.result['results'][0]['measurements'][0]['value'] <= 200) {
@@ -147,6 +158,7 @@ export class AqiComponent implements OnInit {
         this.satisfactory = false;
         this.good = false;
         document.getElementById('aqi__stats').style.background = '#FF9933'
+        document.getElementById('aqi__dailyForecast').style.background =  '#FF9933';
         this.url = '../../assets/sad.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 200 && this.result['results'][0]['measurements'][0]['value'] <= 300) {
@@ -155,6 +167,7 @@ export class AqiComponent implements OnInit {
         this.satisfactory = false;
         this.good = false;
         document.getElementById('aqi__stats').style.background = '#CC0033'
+        document.getElementById('aqi__dailyForecast').style.background =  '#CC0033';
         this.url = '../../assets/face-mask.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 300 && this.result['results'][0]['measurements'][0]['value'] <= 400) {
@@ -164,6 +177,7 @@ export class AqiComponent implements OnInit {
         this.satisfactory = false;
         this.good = false;
         document.getElementById('aqi__stats').style.background = '#660099'
+        document.getElementById('aqi__dailyForecast').style.background =  '#660099';
         this.url = '../../assets/gas_mask.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 400 && this.result['results'][0]['measurements'][0]['value'] <= 500) {
@@ -174,6 +188,7 @@ export class AqiComponent implements OnInit {
         this.satisfactory = false;
         this.good = false;
         document.getElementById('aqi__stats').style.background = '#7E0023'
+        document.getElementById('aqi__dailyForecast').style.background =  '#7E0023';
         this.url = '../../assets/neutral.png'
       }
       this.date = new Date(this.result['results'][0]['measurements'][0]['lastUpdated']).toUTCString();

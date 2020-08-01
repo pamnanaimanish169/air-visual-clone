@@ -38,8 +38,8 @@
       </p>
       <!-- https://css-tricks.com/table-borders-inside/ -->
       <table rules="all">
-          <tr>
-            <td *ngFor="let item of dailyForecast">Tuesday <br> <span style= "border: solid yellow 2px; display: block;text-align: center;background-color: yellow; " >PM 2.5 {{item.avg}}</span></td>
+          <tr *ngIf="dailyForecast">
+            <td *ngFor="let item of dailyForecast">{{ (item.day) }} <br> <span class="aqi__dailyForecast" style= "border: solid yellow 2px; display: block;text-align: center; " >PM 2.5 {{item.avg}}</span></td>
           </tr>
         </table>
       <p>
