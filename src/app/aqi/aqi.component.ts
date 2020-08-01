@@ -47,7 +47,6 @@ export class AqiComponent implements OnInit {
         })
         this.aqiService.getAqiByLocation(coords.toString()).subscribe(res => {
           this.result = res;
-          console.log('Result By LOCATION', this.result['results'].length > 0)
           if(this.result['results'].length > 0) {
             this.isDataAvailable = true;
             if (this.result['results'][0]['measurements'][0]['value'] > 0 && this.result['results'][0]['measurements'][0]['value'] <= 50) {
