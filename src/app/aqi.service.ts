@@ -14,6 +14,8 @@ export class AqiService {
   apiUrl = `${environment.apiUrl}`;
   waqiApiUrl = `${environment.waqAPIUrl}`;
   waqiApiKey = `${environment.waqAPIKey}`;
+  openweatherApiUrl = `${environment.openweatherApiUrl}`;
+  openweatherApiKey = `${environment.openweatherKey}`
 
   constructor(private http: HttpClient) { }
 
@@ -49,6 +51,18 @@ export class AqiService {
     // https://api.waqi.info/feed/geo:10.3;20.7/?token=demo
     console.log(this.waqiApiUrl + 'geo:' + coord + '/?token=' + this.waqiApiKey)
     return this.http.get<any>(this.waqiApiUrl + 'geo:' + coord + '/?token=' + this.waqiApiKey)
+      .pipe(map(res => {
+        return res;
+      }));
+  }
+
+  getCurrentWeather(coord) {
+    console.log(coord)
+    console.log(coord[0]['lat'])
+    console.log(coord[0]['long'])
+    // http://api.openweathermap.org/data/2.5/weather?lat=19.185664&lon=72.8530944&appid=1057acc2bc4acacdc45b8d6e73683cb6
+    console.log(this.openweatherApiUrl + `/weather` + `?lat=` + coord[0]['lat'] +`&lon=` + coord[0]['long'] + `&appid=` + this.openweatherApiKey)
+    return this.http.get<any>(this.openweatherApiUrl + `/weather` +`?lat=` + coord[0]['lat'] +  `&lon=` + coord[0]['long'] + `&appid=` + this.openweatherApiKey)
       .pipe(map(res => {
         return res;
       }));

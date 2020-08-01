@@ -12,6 +12,7 @@ import { AqiService } from '../aqi.service';
 export class AqiComponent implements OnInit {
   aqiForm: FormGroup;
   result;
+  result2;
   date;
   good = false;
   satisfactory = false;
@@ -21,6 +22,8 @@ export class AqiComponent implements OnInit {
   severe = false;
   dailyForecast = [];
   dailyForecastArray = [];
+  url;
+  weather;
 
   constructor(private formBuilder: FormBuilder, private aqiService: AqiService) { }
 
@@ -114,6 +117,10 @@ export class AqiComponent implements OnInit {
       coords.push(res.latt);
       coords.push(res.longt);
       coords2.push({'lat' : res.latt, 'long' : res.longt})
+      this.aqiService.getCurrentWeather(coords2).subscribe(res => {
+        this.weather = res;
+        console.log('Weather', this.weather)
+      })
       coords2.forEach((element, key) => {
         console.log( element.lat + ';' + element.long )
         newCoords.push(element.lat + ';' + element.long);
@@ -125,21 +132,30 @@ export class AqiComponent implements OnInit {
       console.log(this.result);
       if (this.result['results'][0]['measurements'][0]['value'] > 0 && this.result['results'][0]['measurements'][0]['value'] <= 50) {
         this.good = true;
+        console.log( document.getElementById('aqi__stats') )
+        document.getElementById('aqi__stats').style.background = '#009966'
+        this.url = '../../assets/girl.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 50 && this.result['results'][0]['measurements'][0]['value'] <= 100) {
         this.satisfactory = true;
         this.good = false;
+        document.getElementById('aqi__stats').style.background = '#FFDE33'
+        this.url = '../../assets/neutral.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 100 && this.result['results'][0]['measurements'][0]['value'] <= 200) {
         this.moderate = true;
         this.satisfactory = false;
         this.good = false;
+        document.getElementById('aqi__stats').style.background = '#FF9933'
+        this.url = '../../assets/sad.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 200 && this.result['results'][0]['measurements'][0]['value'] <= 300) {
         this.poor = true;
         this.moderate = false;
         this.satisfactory = false;
         this.good = false;
+        document.getElementById('aqi__stats').style.background = '#CC0033'
+        this.url = '../../assets/face-mask.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 300 && this.result['results'][0]['measurements'][0]['value'] <= 400) {
         this.veryPoor = true;
@@ -147,6 +163,8 @@ export class AqiComponent implements OnInit {
         this.moderate = false;
         this.satisfactory = false;
         this.good = false;
+        document.getElementById('aqi__stats').style.background = '#660099'
+        this.url = '../../assets/gas_mask.png'
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 400 && this.result['results'][0]['measurements'][0]['value'] <= 500) {
         this.severe = true;
@@ -155,11 +173,14 @@ export class AqiComponent implements OnInit {
         this.moderate = false;
         this.satisfactory = false;
         this.good = false;
+        document.getElementById('aqi__stats').style.background = '#7E0023'
+        this.url = '../../assets/neutral.png'
       }
       this.date = new Date(this.result['results'][0]['measurements'][0]['lastUpdated']).toUTCString();
     });
     // GET Forecast for 7 days
     this.aqiService.getAqiForecast(newCoords.toString()).subscribe(res => {
+      this.result2 = res;
       console.log('FORECAST', res);
       console.log('7 DAYS', res.data.forecast.daily.pm25)
       for (let i = 0; i < 2; i++ ) {
