@@ -34,8 +34,10 @@ export class AqiService {
   }
 
   getAqiByLocation(coord) {
+    console.log(this.apiUrl + `latest?coordinates=` + coord)
     return this.http.get<any>(this.apiUrl + `latest?coordinates=` + coord)
       .pipe(map(res => {
+        console.log('RESPONSE in AQI Service', res)
         return res;
       }));
   }

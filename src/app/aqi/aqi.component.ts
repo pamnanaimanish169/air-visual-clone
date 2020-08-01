@@ -24,6 +24,7 @@ export class AqiComponent implements OnInit {
   dailyForecastArray = [];
   url;
   weather;
+  isDataAvailable = false;
 
   constructor(private formBuilder: FormBuilder, private aqiService: AqiService) { }
 
@@ -46,7 +47,9 @@ export class AqiComponent implements OnInit {
         })
         this.aqiService.getAqiByLocation(coords.toString()).subscribe(res => {
           this.result = res;
-          if(this.result['results'][0]) {
+          console.log('Result By LOCATION', this.result['results'].length > 0)
+          if(this.result['results'].length > 0) {
+            this.isDataAvailable = true;
             if (this.result['results'][0]['measurements'][0]['value'] > 0 && this.result['results'][0]['measurements'][0]['value'] <= 50) {
               this.good = true;
             }
@@ -117,15 +120,17 @@ export class AqiComponent implements OnInit {
 
       this.aqiService.getAqiByLocation(coords.toString()).subscribe(res => {
       this.result = res;
+      this.isDataAvailable = true;
       if (this.result['results'][0]['measurements'][0]['value'] > 0 && this.result['results'][0]['measurements'][0]['value'] <= 50) {
         this.good = true;
         document.getElementById('aqi__stats').style.background = '#009966'
-        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        this.url = '../../assets/girl.png'
 
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
         for(let i = 0; i < slides.length; i++) {
           slides[i]['style']['background'] = '#009966'
         }
-        this.url = '../../assets/girl.png'
+
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 50 && this.result['results'][0]['measurements'][0]['value'] <= 100) {
         this.satisfactory = true;
@@ -133,6 +138,11 @@ export class AqiComponent implements OnInit {
         document.getElementById('aqi__stats').style.background = '#FFDE33'
         document.getElementById('aqi__dailyForecast').style.background =  '#FFDE33';
         this.url = '../../assets/neutral.png'
+
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        for(let i = 0; i < slides.length; i++) {
+          slides[i]['style']['background'] = '#FFDE33'
+        }
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 100 && this.result['results'][0]['measurements'][0]['value'] <= 200) {
         this.moderate = true;
@@ -141,6 +151,11 @@ export class AqiComponent implements OnInit {
         document.getElementById('aqi__stats').style.background = '#FF9933'
         document.getElementById('aqi__dailyForecast').style.background =  '#FF9933';
         this.url = '../../assets/sad.png'
+
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        for(let i = 0; i < slides.length; i++) {
+          slides[i]['style']['background'] = '#FF9933'
+        }
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 200 && this.result['results'][0]['measurements'][0]['value'] <= 300) {
         this.poor = true;
@@ -150,6 +165,11 @@ export class AqiComponent implements OnInit {
         document.getElementById('aqi__stats').style.background = '#CC0033'
         document.getElementById('aqi__dailyForecast').style.background =  '#CC0033';
         this.url = '../../assets/face-mask.png'
+
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        for(let i = 0; i < slides.length; i++) {
+          slides[i]['style']['background'] = '#CC0033'
+        }
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 300 && this.result['results'][0]['measurements'][0]['value'] <= 400) {
         this.veryPoor = true;
@@ -160,6 +180,11 @@ export class AqiComponent implements OnInit {
         document.getElementById('aqi__stats').style.background = '#660099'
         document.getElementById('aqi__dailyForecast').style.background =  '#660099';
         this.url = '../../assets/gas_mask.png'
+
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        for(let i = 0; i < slides.length; i++) {
+          slides[i]['style']['background'] = '#660099'
+        }
       }
       if (this.result['results'][0]['measurements'][0]['value'] > 400 && this.result['results'][0]['measurements'][0]['value'] <= 500) {
         this.severe = true;
@@ -171,6 +196,11 @@ export class AqiComponent implements OnInit {
         document.getElementById('aqi__stats').style.background = '#7E0023'
         document.getElementById('aqi__dailyForecast').style.background =  '#7E0023';
         this.url = '../../assets/neutral.png'
+
+        let slides = document.getElementsByClassName('aqi__dailyForecast');
+        for(let i = 0; i < slides.length; i++) {
+          slides[i]['style']['background'] = '#7E0023'
+        }
       }
       this.date = new Date(this.result['results'][0]['measurements'][0]['lastUpdated']).toUTCString();
     });

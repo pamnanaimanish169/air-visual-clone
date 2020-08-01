@@ -13,7 +13,7 @@
 <!-- Responsive Top Navigatio Bar  END-->
 
 <!-- Column Cards -->
-<div class="row" *ngIf="result">
+<div class="row" *ngIf="isDataAvailable">
   <div class="column">
       <div class="card">
           <p *ngIf="result['results'][0]">{{result['results'][0]['city']}}</p>
