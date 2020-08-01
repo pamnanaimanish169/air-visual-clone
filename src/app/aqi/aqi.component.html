@@ -14,18 +14,42 @@
 
 <!-- Column Cards -->
 <div class="row" *ngIf="result">
-  <div class = "column">
-    <div class="card">
-      <h3>{{result['results'][0]['city']}}</h3>
-      <p>{{ date}}</p>
-      <p>{{result['results'][0]['measurements'][0]['value']}} µg/m³<span *ngIf="good">Good </span> <span *ngIf="satisfactory">Satisfactory </span> <span *ngIf="moderate">Moderate </span> <span *ngIf="poor">Poor </span><span *ngIf="veryPoor">Very Poor </span><span *ngIf="severe">Severe </span> </p>
-      <p><i class="fa fa-thermometer-half" aria-hidden="true"></i>PM10: {{result['results'][0]['measurements'][1]['value']}}  <i class="fa fa-tint" aria-hidden="true"></i> CO: {{result['results'][0]['measurements'][2]['value']}} <i class="fa fa-angle-down" aria-hidden="true"></i>O3:  {{result['results'][0]['measurements'][2]['value']}}</p>
-      <div *ngIf="dailyForecastArray">
-        <div *ngFor="let item of dailyForecastArray">
-          <p>{{item.day}} <i class="fa fa-thermometer-half" aria-hidden="true"></i> PM2.5: {{item.avg}}</p>
-        </div>
+  <div class="column">
+      <div class="card">
+          <p>Jaipur air quality index(AQI)</p>
+          <hr>
+          <p>10:30, Jul 28</p>
+          <p>
+              <table rules="all">
+                  <tr style="background-color: #FFDF58; padding: 10px;">
+                    <td><img src="../../assets/neutral.png" alt="" style="max-width: 40%;"></td>
+                    <td>87 <br> US AQI</td>
+                    <td>Moderate <br> PM 2.5 | 29.4 ug/m^3</td>
+                  </tr>
+                </table>
+              <table rules="all">
+                  <tr>
+                    <td><img src=".././../assets/mist.png" alt="" style="max-width: 25%;"> 34</td>
+                    <td><img src="../../assets/wave.png" alt="" style="max-width: 25%;">52 %</td>
+                    <td><img src="../../assets/download.png" alt="" style="max-width: 25%;"> 14.8 km/h</td>
+                  </tr>
+                </table>
+          <p>
+      </p>
+      <!-- https://css-tricks.com/table-borders-inside/ -->
+      <table rules="all">
+          <tr>
+            <td>Tuesday <br> <span style= "border: solid yellow 2px; display: block;text-align: center;background-color: yellow; " >67</span></td>
+            <td>Wednesday <span style="border: solid yellow 2px; display: block;text-align: center;background-color: yellow; "> 62 </span></td>
+            <td>Thursday <span style="border: solid yellow 2px; display: block;text-align: center;background-color: yellow; "> 92 </span></td>
+          </tr>
+        </table>
+      <p>
+          <button style="background-color: blue; color: white; border: none; width: 100%; height: 50px;display: block;border-radius: 10px;">
+              7-DAYS FORECAST
+          </button>
+      </p>
       </div>
-    </div>
   </div>
 </div>
 <!-- Column Cards END -->

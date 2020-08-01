@@ -32,7 +32,7 @@ export class AqiService {
   }
 
   getAqiByLocation(coord) {
-    return this.http.get<any>(this.apiUrl + `/latest?coordinates=` + coord)
+    return this.http.get<any>(this.apiUrl + `latest?coordinates=` + coord)
       .pipe(map(res => {
         return res;
       }));

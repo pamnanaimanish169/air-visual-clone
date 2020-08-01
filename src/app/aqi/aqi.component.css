@@ -77,19 +77,18 @@ body {
 
 /* Card START */
 
-/* ?To Center the Div */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Dosis', sans-serif
+}
+
 .row {
   text-align: center;
   margin: 0 -5px;
 }
-
-.column {
-  background-color: grey;
-  display: inline-block;
-  width: 25%;
-  padding: 0 10px;
-}
-/* ?To Center the Div */
 
 .row:after {
   content: "";
@@ -97,18 +96,33 @@ body {
   clear: both;
 }
 
+.column {
+  width: 25%;
+  padding: 0 10px;
+  display: inline-block;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+table {
+  margin: 0 auto;
+  border: 2px solid black;
+}
+table td {
+  padding: 0.7rem;
+}
+
 @media screen and (max-width: 600px) {
   .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
   }
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    text-align: center;
-    background-color: #f1f1f1;
-  }
-
 }
+
 /* Card END */
