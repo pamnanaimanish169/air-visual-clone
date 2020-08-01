@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActionSequence } from 'protractor';
 import { AqiService } from '../aqi.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-aqi',
@@ -26,7 +27,7 @@ export class AqiComponent implements OnInit {
   weather;
   isDataAvailable = false;
 
-  constructor(private formBuilder: FormBuilder, private aqiService: AqiService) { }
+  constructor(private formBuilder: FormBuilder, private aqiService: AqiService, private toastrService: ToastrService) { }
 
   ngOnInit() {
       this.createForm();
@@ -47,7 +48,8 @@ export class AqiComponent implements OnInit {
         })
         this.aqiService.getAqiByLocation(coords.toString()).subscribe(res => {
           this.result = res;
-          if(this.result['results'].length > 0) {
+          console.log('GET AQI BY LOCATION', this.result['results'].length)
+          if( this.result['results'].length > 0 ) {
             this.isDataAvailable = true;
             if (this.result['results'][0]['measurements'][0]['value'] > 0 && this.result['results'][0]['measurements'][0]['value'] <= 50) {
               this.good = true;
@@ -83,6 +85,9 @@ export class AqiComponent implements OnInit {
               this.good = false;
             }
             this.date = new Date(this.result['results'][0]['measurements'][0]['lastUpdated']).toUTCString();
+          } else if(this.result['results'].length == 0) {
+            console.log('The Length is zero')
+            this.toastrService.error('No data for the Current Location. Please try searching your city by name.')
           }
         });
         // GET Forecast for 7 days

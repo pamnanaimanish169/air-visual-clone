@@ -4,9 +4,9 @@
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
   <div class="search-container">
-    <form action="" [formGroup] ="aqiForm">
+    <form [formGroup] ="aqiForm">
       <input type="text" placeholder="Search.." formControlName="aqiInput">
-    <button type="submit" (click)="onSubmit()"><i class="fa fa-search"></i></button>
+    <button (click)="onSubmit()"><i class="fa fa-search"></i></button>
     </form>
   </div>
 </div>
@@ -38,8 +38,8 @@
       </p>
       <!-- https://css-tricks.com/table-borders-inside/ -->
       <table rules="all">
-          <tr *ngIf="dailyForecast">
-            <td *ngFor="let item of dailyForecast">{{ (item.day) }} <br> <span class="aqi__dailyForecast" style= " display: block;text-align: center; " >PM 2.5 {{item.avg}}</span></td>
+          <tr *ngIf="dailyForecastArray">
+            <td *ngFor="let item of dailyForecastArray">{{ (item.day) }} <br> <span class="aqi__dailyForecast" style= " display: block;text-align: center; " >PM 2.5 {{item.avg}}</span></td>
           </tr>
         </table>
       <p>

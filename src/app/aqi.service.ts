@@ -15,7 +15,8 @@ export class AqiService {
   waqiApiUrl = `${environment.waqAPIUrl}`;
   waqiApiKey = `${environment.waqAPIKey}`;
   openweatherApiUrl = `${environment.openweatherApiUrl}`;
-  openweatherApiKey = `${environment.openweatherKey}`
+  openweatherApiKey = `${environment.openweatherKey}`;
+  geocodeApiKey = `${environment.geocodeAPIKey}`;
 
   constructor(private http: HttpClient) { }
 
@@ -43,7 +44,8 @@ export class AqiService {
   }
 
   getCoordinates(cityName) {
-    return this.http.get<any>('https://geocode.xyz/' + cityName + '?json=1')
+    // https://geocode.xyz/mumbai?&auth=308013705204392331516x6849&json=1
+    return this.http.get<any>('https://geocode.xyz/'  + cityName + `?&auth=` + this.geocodeApiKey + `&json=1`)
       .pipe(map(res => {
         return res;
       }));
